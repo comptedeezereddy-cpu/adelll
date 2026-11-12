@@ -1,0 +1,249 @@
+<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Adel</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"><style>:root{--ink:#0B1F33;--mute:#5B6B7B;--line:#E2E8EE;--bg:#F6F8FA;--surf:#fff;--acc:#0F5E75;--acc2:#E8F1F5;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
+.app{display:flex;min-height:100vh}
+.side{width:220px;background:var(--ink);padding:20px 12px;flex:none}
+.brand{font-weight:600;font-size:17px;padding:0 10px 18px;letter-spacing:.02em;color:#fff}
+.side button{display:block;width:100%;text-align:left;background:none;border:0;color:#B8C4D0;padding:9px 10px;border-radius:6px;font:inherit;cursor:pointer}
+.side button.on{background:rgba(255,255,255,.12);color:#fff}
+.main{flex:1;min-width:0;padding:26px 30px;max-width:1120px}
+@media(max-width:760px){.app{display:block}.side{width:auto;display:flex;gap:4px;overflow-x:auto;padding:8px 10px;position:sticky;top:0;z-index:5;align-items:center}.brand{padding:6px 10px;white-space:nowrap}.side button{width:auto;white-space:nowrap}.main{padding:16px}}
+h1{font-size:22px;margin:0 0 4px;font-weight:600;letter-spacing:-.01em}h2{font-size:16px;margin:0 0 10px}
+.sub{color:var(--mute);margin:0 0 18px}
+.card{background:var(--surf);border:1px solid var(--line);border-radius:8px;padding:16px}
+.tw{overflow-x:auto;padding:0}
+table{width:100%;border-collapse:collapse;min-width:620px}
+th{text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--mute);font-weight:600;padding:10px 14px;border-bottom:1px solid var(--line)}
+td{padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top}tr:last-child td{border:0}
+td small{display:block;color:var(--mute)}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:18px}
+.kpi b{display:block;font-size:24px;font-weight:600}.kpi span{color:var(--mute);font-size:13px}
+.btn{background:var(--acc);color:#fff;border:0;border-radius:6px;padding:9px 16px;font:inherit;font-weight:600;cursor:pointer;margin:0 6px 4px 0}
+.btn:hover{filter:brightness(1.12)}.btn.s{background:var(--surf);color:var(--ink);border:1px solid var(--line)}.btn.sm{padding:5px 10px;font-size:13px}.btn[disabled]{opacity:.5}
+input,select,textarea{width:100%;border:1px solid var(--line);border-radius:6px;padding:9px 10px;font:inherit;background:#fff;color:var(--ink)}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+label{display:block;font-size:13px;font-weight:600;margin:12px 0 4px}
+.row{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+.st{display:inline-flex;align-items:center;gap:6px;font-weight:600;white-space:nowrap}.st::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--c,#94A3B8)}
+.ov{position:fixed;inset:0;background:rgba(11,31,51,.5);display:none;align-items:center;justify-content:center;padding:16px;z-index:50}.ov.on{display:flex}
+.md{background:#fff;border-radius:10px;padding:22px;width:100%;max-width:520px;max-height:90vh;overflow:auto}
+.toast{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:6px;z-index:60}
+.ban{background:var(--acc2);color:var(--acc);border-radius:6px;padding:10px 14px;margin-bottom:16px;font-size:13px}
+.login{max-width:360px;margin:12vh auto;padding:0 16px}.login .brand{color:var(--ink);padding:0 0 6px;font-size:22px}
+.head{background:var(--ink);color:#fff;padding:16px 20px;font-weight:600;font-size:17px}
+.wrap{max-width:620px;margin:0 auto;padding:22px 16px}
+.dl{display:grid;grid-template-columns:130px 1fr;gap:8px 12px;margin:0}.dl dt{color:var(--mute)}.dl dd{margin:0;font-weight:500}
+.big{font-size:30px;font-weight:600;letter-spacing:-.02em}
+.cards{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin-top:18px}
+.opt{background:#fff;border:1px solid var(--line);border-radius:10px;padding:20px;text-align:left;cursor:pointer;font:inherit;color:var(--ink);transition:border-color .15s,transform .15s}
+.opt:hover{border-color:var(--acc);transform:translateY(-2px)}.opt b{display:block;font-size:16px;margin-bottom:4px}.opt span{color:var(--mute)}
+</style></head><body><div id="root"></div><div class="ov" id="ov"><div class="md" id="md"></div></div><script src="config.js"></script><script>var A=Object.assign({SUPABASE_URL:"",SUPABASE_KEY:"",COMMISSION:15,HOTEL_SHARE:30,CONDITIONS:"Annulation gratuite jusqu’à 24 h avant la prestation."},window.ADEL||{});
+var live=/^https?:/.test(A.SUPABASE_URL),ROLE="",MYH="h1",MYP="p1";
+function $(i){return document.getElementById(i)}
+function eur(n){return (Math.round((n||0)*100)/100).toLocaleString("fr-FR")+" €"}
+function esc(t){var d=document.createElement("div");d.textContent=t==null?"":t;return d.innerHTML}
+function fv(i){return $(i).value.trim()}
+function toast(t){var d=document.createElement("div");d.className="toast";d.textContent=t;document.body.appendChild(d);setTimeout(function(){d.remove()},2600)}
+var SC={"Nouvelle":"#64748B","En attente prestataire":"#B45309","Refusée":"#B42318","Proposée au client":"#6D28D9","Payée":"#0A7F57","Réalisée":"#166534","Annulée":"#94A3B8","En attente":"#B45309","Acceptée":"#0A7F57"};
+function st(s){return "<span class='st' style='--c:"+(SC[s]||"#94A3B8")+"'>"+esc(s)+"</span>"}
+function modal(h){$("md").innerHTML=h;$("ov").className="ov on"}function closeM(){$("ov").className="ov"}
+$("ov").addEventListener("click",function(e){if(e.target.id==="ov")closeM()});
+function demoBanner(){return live?"":"<div class='ban'>Mode démonstration : les données restent dans ce navigateur. Renseignez config.js pour connecter la vraie base.</div>"}
+var tok=sessionStorage.getItem("tok")||"",who=sessionStorage.getItem("who")||"",uid=sessionStorage.getItem("uid")||"";
+function hd(){var h={apikey:A.SUPABASE_KEY,"Content-Type":"application/json"};if(tok)h.Authorization="Bearer "+tok;return h}
+function RU(p){return A.SUPABASE_URL+"/rest/v1/"+p}
+var ORD={requests:"created_at.desc",stays:"created_at.desc",applications:"created_at.desc",hotels:"name",providers:"name"};
+var DK="adel_demo_v3",D=null;
+function dload(){var s=null;try{s=localStorage.getItem(DK)}catch(e){}if(s){try{D=JSON.parse(s)}catch(e){}}
+ if(!D){var n=new Date().toISOString();D={hotels:[{id:"h1",name:"Hôtel Démo"}],
+ providers:[{id:"p1",name:"Marc Dubois",category:"Transport",city:"Paris",languages:"FR, EN",email:"marc@exemple.fr",phone:""},{id:"p2",name:"Claire Martin",category:"Visites guidées",city:"Paris",languages:"FR, EN, ES",email:"claire@exemple.fr",phone:""}],
+ applications:[{id:"a1",created_at:n,name:"Sophie Bernard",email:"sophie@exemple.fr",phone:"",category:"Baby-sitting",city:"Paris",languages:"FR, EN",message:"5 ans d’expérience auprès de familles.",status:"En attente"}],
+ stays:[{id:"s1",created_at:n,hotel_id:"h1",guest:"Mme Laurent",email:"laurent@exemple.fr",arrival:"14/11",departure:"17/11"}],
+ requests:[{id:"r1",created_at:n,stay_id:"s1",hotel_id:"h1",guest:"Mme Laurent",category:"Transport",details:"Transfert CDG vers l’hôtel, 3 personnes",date:"14/11 à 14 h",people:3,price:null,status:"Nouvelle"}],assignments:[]}}}
+function dsave(){try{localStorage.setItem(DK,JSON.stringify(D))}catch(e){}}
+dload();
+function dview(t){var a=D[t]||[];
+ if(ROLE==="hotel"){if(t==="requests"||t==="stays")return a.filter(function(x){return x.hotel_id===MYH});if(t==="hotels")return a.filter(function(x){return x.id===MYH});return []}
+ if(ROLE==="provider"){if(t==="providers")return a.filter(function(x){return x.id===MYP});if(t==="requests"){var ids=D.assignments.filter(function(x){return x.provider_id===MYP}).map(function(x){return x.request_id});return a.filter(function(x){return ids.indexOf(x.id)>-1})}return []}
+ return a}
+var api={
+ async list(t){if(!live){dload();return JSON.parse(JSON.stringify(dview(t)))}
+  var r=await fetch(RU(t+"?select=*"+(ORD[t]?"&order="+ORD[t]:"")),{headers:hd()});if(r.status===401)throw "auth";return r.json()},
+ async ins(t,row){if(!live){dload();row.id="d"+Date.now()+Math.floor(Math.random()*99);row.created_at=new Date().toISOString();D[t].unshift(row);dsave();return row}
+  var r=await fetch(RU(t),{method:"POST",headers:Object.assign(hd(),{Prefer:"return=representation"}),body:JSON.stringify(row)});if(!r.ok)throw 0;return (await r.json())[0]},
+ async insAnon(t,row){if(!live)return api.ins(t,row);var r=await fetch(RU(t),{method:"POST",headers:Object.assign(hd(),{Prefer:"return=minimal"}),body:JSON.stringify(row)});if(!r.ok)throw 0},
+ async upd(t,id,p){if(!live){dload();Object.assign(D[t].filter(function(x){return x.id===id})[0],p);dsave();return}
+  var r=await fetch(RU(t+"?id=eq."+id),{method:"PATCH",headers:hd(),body:JSON.stringify(p)});if(!r.ok)throw 0},
+ async assign(rid,pid){if(!live){dload();D.assignments=D.assignments.filter(function(x){return x.request_id!==rid});D.assignments.push({request_id:rid,provider_id:pid});dsave();return api.upd("requests",rid,{status:"En attente prestataire"})}
+  var r=await fetch(RU("assignments"),{method:"POST",headers:Object.assign(hd(),{Prefer:"resolution=merge-duplicates,return=minimal"}),body:JSON.stringify({request_id:rid,provider_id:pid})});if(!r.ok)throw 0;return api.upd("requests",rid,{status:"En attente prestataire"})},
+ async rpc(fn,a){if(!live){dload();var s=D.stays.filter(function(x){return x.id===a.sid})[0];if(!s)return null;
+   if(fn==="get_stay")return {stay:s,hotel:D.hotels.filter(function(h){return h.id===s.hotel_id})[0].name,requests:D.requests.filter(function(r){return r.stay_id===s.id})};
+   D.requests.unshift({id:"d"+Date.now(),created_at:new Date().toISOString(),stay_id:s.id,hotel_id:s.hotel_id,guest:s.guest,category:a.cat,details:a.det,date:a.dt,people:a.ppl,price:null,status:"Nouvelle"});dsave();return null}
+  var r=await fetch(RU("rpc/"+fn),{method:"POST",headers:hd(),body:JSON.stringify(a)});if(!r.ok)throw 0;var t=await r.text();return t?JSON.parse(t):null}
+};
+async function fn(name,body){if(!live)return {ok:true};
+ var r=await fetch("/.netlify/functions/"+name,{method:"POST",headers:{Authorization:"Bearer "+tok},body:JSON.stringify(body)});if(!r.ok)throw 0;return r.json()}
+function gate(title,role,cb){
+ ROLE=role;if(!live){cb("demo");return}
+ async function ok(){try{var r=await fetch(RU("profiles?select=role&user_id=eq."+uid),{headers:hd()});var p=await r.json();if(!p[0]||p[0].role!==role)throw 0;cb(who)}catch(e){sessionStorage.clear();tok="";toast("Accès non autorisé pour ce compte");setTimeout(function(){location.reload()},1200)}}
+ if(tok){ok();return}
+ $("root").innerHTML="<div class='login'><div class='brand'>"+title+"</div><p class='sub'>Connexion réservée aux utilisateurs autorisés.</p><label for='em'>E-mail</label><input id='em' type='email' autocomplete='username'><label for='pw'>Mot de passe</label><input id='pw' type='password' autocomplete='current-password'><p style='margin-top:16px'><button class='btn' id='go'>Se connecter</button></p><p><a href='#home'>Retour à l’accueil</a></p></div>";
+ $("go").onclick=async function(){try{var r=await fetch(A.SUPABASE_URL+"/auth/v1/token?grant_type=password",{method:"POST",headers:{apikey:A.SUPABASE_KEY,"Content-Type":"application/json"},body:JSON.stringify({email:fv("em"),password:$("pw").value})});var d=await r.json();if(!d.access_token)throw 0;
+  tok=d.access_token;uid=d.user.id;who=fv("em").toLowerCase();sessionStorage.setItem("tok",tok);sessionStorage.setItem("uid",uid);sessionStorage.setItem("who",who);ok()}catch(e){toast("Identifiants incorrects")}}}
+function shell(title,tabs,f){var cur=tabs[0];function d(){
+ $("root").innerHTML="<div class='app'><nav class='side'><div class='brand'>"+title+"</div>"+tabs.map(function(t){return "<button class='"+(t===cur?"on":"")+"' data-t='"+t+"'>"+t+"</button>"}).join("")+(live?"<button data-t='__out'>Déconnexion</button>":"")+"</nav><main class='main' id='mn'></main></div>";
+ document.querySelectorAll(".side button").forEach(function(b){b.onclick=function(){if(b.dataset.t==="__out"){sessionStorage.clear();location.hash="home";return}cur=b.dataset.t;d()}});f(cur,$("mn"))}
+ d();return d}
+function opts(a,v){return a.map(function(c){return "<option"+(c===v?" selected":"")+">"+c+"</option>"}).join("")}
+var CATS=["Transport","Visites guidées","Restauration","Baby-sitting","Excursions","Cadeaux & VIP","Autre"];
+function btn(a,l,id,s){return "<button class='btn sm"+(s?" s":"")+"' data-a='"+a+"' data-id='"+id+"'>"+l+"</button>"}
+function find(a,id){return a.filter(function(x){return x.id===id})[0]}
+function guard(f){return async function(e){var t=e.target.closest("[data-a]");if(!t)return;try{await f(t.dataset.a,t.dataset.id,t)}catch(err){if(err!=="x")toast("Action impossible, réessayez")}}}
+
+function run_home(){
+function page(b,w){$("root").innerHTML="<div class='head'>Adel</div><div class='wrap' style='max-width:"+(w||760)+"px'>"+b+"</div>"}
+function home(){page(demoBanner()+"<h1>Bienvenue</h1><p class='sub'>Choisissez votre profil pour continuer.</p><div class='cards'><button class='opt' data-a='hotel'><b>Je suis un hôtel</b><span>Gérer les séjours et les demandes de vos clients.</span></button><button class='opt' data-a='prest'><b>Je suis prestataire</b><span>Postuler ou accéder à vos missions.</span></button><button class='opt' data-a='client'><b>Je suis client</b><span>Accéder aux prestations de votre séjour.</span></button></div>")}
+async function setpw(t){page("<h1>Choisissez votre mot de passe</h1><p class='sub'>Il ne sera connu que de vous.</p><label for='pw'>Mot de passe (8 caractères minimum)</label><input id='pw' type='password' autocomplete='new-password'><p style='margin-top:16px'><button class='btn' id='go'>Valider</button></p>",420);
+ $("go").onclick=async function(){try{if($("pw").value.length<8){toast("8 caractères minimum");return}
+  var r=await fetch(A.SUPABASE_URL+"/auth/v1/user",{method:"PUT",headers:{apikey:A.SUPABASE_KEY,Authorization:"Bearer "+t,"Content-Type":"application/json"},body:JSON.stringify({password:$("pw").value})});var d=await r.json();if(!d.id)throw 0;
+  var p=await (await fetch(RU("profiles?select=role&user_id=eq."+d.id),{headers:{apikey:A.SUPABASE_KEY,Authorization:"Bearer "+t}})).json();
+  sessionStorage.setItem("tok",t);sessionStorage.setItem("uid",d.id);sessionStorage.setItem("who",(d.email||"").toLowerCase());
+  location.hash={admin:"admin",hotel:"hotel",provider:"prestataire"}[p[0].role]||"home"}catch(e){toast("Lien expiré ou invalide")}}}
+document.addEventListener("click",guard(async function(a){
+ if(a==="hotel")location.hash="hotel";
+ else if(a==="client")modal("<h2>Espace client</h2><p class='sub'>Votre hôtel vous a envoyé un e-mail avec votre lien personnel. Ouvrez-le pour commander vos prestations. Pas reçu ? Demandez-le à la réception.</p><button class='btn' data-a='close'>Compris</button>");
+ else if(a==="prest")modal("<h2>Espace prestataire</h2><p><button class='btn' data-a='apply'>Postuler</button><button class='btn s' data-a='login'>J’ai déjà un compte</button></p>");
+ else if(a==="login")location.hash="prestataire";
+ else if(a==="close")closeM();
+ else if(a==="apply")modal("<h2>Candidature</h2><label for='n'>Nom complet</label><input id='n'><div class='row'><div><label for='m'>E-mail</label><input id='m' type='email'></div><div><label for='t'>Téléphone</label><input id='t'></div></div><div class='row'><div><label for='c'>Catégorie</label><select id='c'>"+opts(CATS)+"</select></div><div><label for='v'>Ville</label><input id='v'></div></div><label for='l'>Langues</label><input id='l' placeholder='FR, EN'><label for='x'>Présentation</label><textarea id='x' rows='3'></textarea><p style='margin-top:16px'><button class='btn' data-a='sendapp'>Envoyer ma candidature</button><button class='btn s' data-a='close'>Annuler</button></p>");
+ else if(a==="sendapp"){if(!fv("n")||!fv("m")){toast("Nom et e-mail requis");throw "x"}await api.insAnon("applications",{name:fv("n"),email:fv("m"),phone:fv("t"),category:$("c").value,city:fv("v"),languages:fv("l"),message:fv("x"),status:"En attente"});modal("<h2>Candidature envoyée</h2><p class='sub'>Nous l’étudions et vous répondrons par e-mail.</p><button class='btn' data-a='close'>Fermer</button>")}
+}));
+var h0=new URLSearchParams(location.hash.slice(1));
+if(live&&h0.get("access_token"))setpw(h0.get("access_token"));else home();
+
+}
+function run_sejour(){
+var sid=new URLSearchParams(location.search).get("s")||(live?"":"s1"),back=new URLSearchParams(location.search).get("paid"),Z=null;
+function page(b){$("root").innerHTML="<div class='head'>"+(Z?esc(Z.hotel):"Adel")+"</div><div class='wrap'>"+b+"</div>"}
+async function init(){
+ try{Z=sid?await api.rpc("get_stay",{sid:sid}):null}catch(e){Z=null}
+ if(!Z){page("<h1>Lien invalide</h1><p class='sub'>Ce lien est incorrect ou a expiré. Contactez la réception de votre hôtel.</p>");return}
+ var h=demoBanner()+"<h1>Bonjour "+esc(Z.stay.guest)+"</h1><p class='sub'>Séjour du "+esc(Z.stay.arrival)+" au "+esc(Z.stay.departure)+". Commandez ici des prestations pour votre séjour.</p><p><button class='btn' data-a='new'>Demander une prestation</button></p>";
+ if(back)h+="<div class='ban'><b>Merci, votre paiement est en cours de confirmation.</b></div>";
+ if(!Z.requests.length)h+="<p class='sub'>Aucune demande pour le moment : transferts, visites guidées, restaurants, baby-sitting, excursions…</p>";
+ Z.requests.forEach(function(r){h+="<div class='card' style='margin-bottom:12px'><div style='display:flex;justify-content:space-between;gap:10px'><b>"+esc(r.category)+"</b>"+st(r.status==="Refusée"||r.status==="Nouvelle"?"En attente prestataire":r.status)+"</div><p class='sub' style='margin:4px 0'>"+esc(r.details)+" · "+esc(r.date)+" · "+r.people+" pers.</p>";
+  if(r.status==="Proposée au client")h+="<div class='big'>"+eur(r.price)+"</div><p class='sub'>"+esc(A.CONDITIONS)+"</p><button class='btn' data-a='pay' data-id='"+r.id+"' style='width:100%;padding:12px'>Payer "+eur(r.price)+"</button>";
+  else if(r.status==="Payée"||r.status==="Réalisée")h+="<p class='sub' style='margin:4px 0'>Paiement reçu, prestation confirmée.</p>";
+  h+="</div>"});
+ page(h)}
+document.addEventListener("click",guard(async function(a,id,t){
+ if(a==="close")closeM();
+ else if(a==="new")modal("<h2>Demander une prestation</h2><div class='row'><div><label for='c'>Catégorie</label><select id='c'>"+opts(CATS)+"</select></div><div><label for='p'>Personnes</label><input id='p' type='number' min='1' value='2'></div></div><label for='d'>Date et heure</label><input id='d' placeholder='ex. 15/11 à 10 h'><label for='x'>Détails</label><textarea id='x' rows='3'></textarea><p style='margin-top:16px'><button class='btn' data-a='send'>Envoyer</button><button class='btn s' data-a='close'>Annuler</button></p>");
+ else if(a==="send"){if(!fv("d")){toast("Indiquez la date");throw "x"}await api.rpc("create_request",{sid:sid,cat:$("c").value,det:fv("x"),dt:fv("d"),ppl:+$("p").value||1});closeM();toast("Demande envoyée");init()}
+ else if(a==="pay"){var r=Z.requests.filter(function(x){return x.id===id})[0];t.disabled=true;t.textContent="Redirection…";
+  try{if(!live){await api.upd("requests",id,{status:"Payée"});init();return}
+   var c=await fetch("/.netlify/functions/checkout",{method:"POST",body:JSON.stringify({items:[{n:r.category,o:r.details,p:r.price}],origin:location.origin,back:location.pathname+location.search})});var d=await c.json();if(!d.url)throw 0;location.href=d.url}
+  catch(e){t.disabled=false;t.textContent="Payer "+eur(r.price);toast("Paiement indisponible, contactez l’hôtel")}}
+}));
+init();
+
+}
+function run_hotel(){
+var R=[],S=[],H=null,go;
+async function load(){try{R=await api.list("requests");S=await api.list("stays");H=(await api.list("hotels"))[0]||null}catch(e){if(e==="auth"){sessionStorage.clear();location.reload()}else toast("Chargement impossible")}}
+async function refresh(){await load();go()}
+function hs(s){return s==="Refusée"?"En attente prestataire":s}
+function slink(id){return location.origin+location.pathname+"?s="+id}
+function view(tab,el){var h=demoBanner();
+ if(tab==="Séjours"){h+="<h1>Séjours</h1><p class='sub'>Ajoutez un client : un lien personnel est créé pour qu’il commande ses prestations.</p><p><button class='btn' data-a='newstay'>Nouveau séjour</button></p><div class='card tw'><table><thead><tr><th>Client</th><th>Séjour</th><th></th></tr></thead><tbody>";
+  if(!S.length)h+="<tr><td colspan='3'>Aucun séjour enregistré.</td></tr>";
+  S.forEach(function(s){h+="<tr><td><b>"+esc(s.guest)+"</b><small>"+esc(s.email)+"</small></td><td>"+esc(s.arrival)+" au "+esc(s.departure)+"</td><td>"+btn("resend","Lien du client",s.id,1)+btn("newr","Nouvelle demande",s.id,1)+"</td></tr>"});h+="</tbody></table></div>"}
+ if(tab==="Demandes"){var run=0,cash=0;R.forEach(function(r){if(r.status==="Payée"||r.status==="Réalisée")cash+=r.price||0;else if(r.status!=="Annulée")run++});
+  h+="<h1>Demandes</h1><p class='sub'>Suivi des prestations de vos clients. La plateforme s’occupe de trouver le prestataire.</p><div class='kpi'><div class='card'><b>"+R.length+"</b><span>demandes</span></div><div class='card'><b>"+run+"</b><span>en cours</span></div><div class='card'><b>"+eur(cash)+"</b><span>prestations payées</span></div></div><div class='card tw'><table><thead><tr><th>Client</th><th>Demande</th><th>Prix</th><th>Statut</th></tr></thead><tbody>";
+  if(!R.length)h+="<tr><td colspan='4'>Aucune demande pour le moment.</td></tr>";
+  R.forEach(function(r){h+="<tr><td><b>"+esc(r.guest)+"</b><small>"+esc(r.date)+" · "+r.people+" pers.</small></td><td>"+esc(r.category)+"<small>"+esc(r.details)+"</small></td><td>"+(r.price?eur(r.price):"—")+"</td><td>"+st(hs(r.status))+"</td></tr>"});h+="</tbody></table></div>"}
+ if(tab==="Relevés"){var tp=0,th=0;h+="<h1>Relevés</h1><p class='sub'>Votre part sur les prestations payées (taux indicatif, à fixer par contrat).</p><div class='card tw'><table><thead><tr><th>Prestation</th><th>Prix</th><th>Votre part</th></tr></thead><tbody>";
+  R.filter(function(r){return r.status==="Payée"||r.status==="Réalisée"}).forEach(function(r){var x=r.price*A.COMMISSION/100*A.HOTEL_SHARE/100;tp+=r.price;th+=x;h+="<tr><td>"+esc(r.guest)+"<small>"+esc(r.category)+"</small></td><td>"+eur(r.price)+"</td><td>"+eur(x)+"</td></tr>"});
+  h+="<tr><td><b>Total</b></td><td><b>"+eur(tp)+"</b></td><td><b>"+eur(th)+"</b></td></tr></tbody></table></div>"}
+ el.innerHTML=h}
+async function sendLink(s){await fn("send-link",{email:s.email,guest:s.guest,hotel:H.name,url:slink(s.id)})}
+function showLink(s,sent){var u=slink(s.id),m="Bonjour "+s.guest+", voici votre espace pour réserver des prestations pendant votre séjour : "+u;
+ modal("<h2>Lien du client</h2><p class='sub'>"+(sent?"E-mail envoyé à ":"Envoyez ce lien à ")+esc(s.email)+"</p><input readonly value='"+esc(u)+"' onclick='this.select()'><p style='margin-top:14px'><a class='btn' style='text-decoration:none;display:inline-block' href='https://wa.me/?text="+encodeURIComponent(m)+"'>WhatsApp</a><a class='btn s' style='text-decoration:none;display:inline-block' href='mailto:"+encodeURIComponent(s.email)+"?subject="+encodeURIComponent("Votre espace "+H.name)+"&body="+encodeURIComponent(m)+"'>E-mail</a><button class='btn s' data-a='close'>Fermer</button></p>")}
+async function trySend(s){try{if(!live)return false;await sendLink(s);return true}catch(e){return false}}
+document.addEventListener("click",guard(async function(a,id){
+ if(!H&&a!=="close"){toast("Aucun hôtel rattaché à ce compte");throw "x"}
+ if(a==="close")closeM();
+ else if(a==="newstay")modal("<h2>Nouveau séjour</h2><label for='g'>Nom du client</label><input id='g'><label for='m'>E-mail du client</label><input id='m' type='email'><div class='row'><div><label for='a'>Arrivée</label><input id='a' placeholder='14/11'></div><div><label for='d'>Départ</label><input id='d' placeholder='17/11'></div></div><p style='margin-top:16px'><button class='btn' data-a='savestay'>Créer le lien</button><button class='btn s' data-a='close'>Annuler</button></p>");
+ else if(a==="savestay"){if(!fv("g")||!fv("m")){toast("Nom et e-mail requis");throw "x"}var s=await api.ins("stays",{hotel_id:H.id,guest:fv("g"),email:fv("m"),arrival:fv("a"),departure:fv("d")});var sent=await trySend(s);await refresh();showLink(s,sent)}
+ else if(a==="resend"){var s3=find(S,id);var sent2=await trySend(s3);showLink(s3,sent2)}
+ else if(a==="newr")modal("<h2>Nouvelle demande</h2><p class='sub'>"+esc(find(S,id).guest)+"</p><div class='row'><div><label for='c'>Catégorie</label><select id='c'>"+opts(CATS)+"</select></div><div><label for='p'>Personnes</label><input id='p' type='number' min='1' value='2'></div></div><label for='d'>Date et heure</label><input id='d' placeholder='14/11 à 14 h'><label for='x'>Détails</label><textarea id='x' rows='3'></textarea><p style='margin-top:16px'><button class='btn' data-a='saver' data-id='"+id+"'>Envoyer la demande</button><button class='btn s' data-a='close'>Annuler</button></p>");
+ else if(a==="saver"){if(!fv("d")){toast("Date requise");throw "x"}var s2=find(S,id);await api.ins("requests",{stay_id:s2.id,hotel_id:H.id,guest:s2.guest,category:$("c").value,details:fv("x"),date:fv("d"),people:+$("p").value||1,status:"Nouvelle"});closeM();toast("Demande envoyée");refresh()}
+}));
+gate("Adel · Hôtel","hotel",async function(){await load();go=shell("Adel · Hôtel",["Séjours","Demandes","Relevés"],view)});
+
+}
+function run_admin(){
+var R=[],P=[],Ap=[],Ho=[],L=[],go;
+async function load(){try{R=await api.list("requests");P=await api.list("providers");Ap=await api.list("applications");Ho=await api.list("hotels");L=await api.list("assignments")}catch(e){if(e==="auth"){sessionStorage.clear();location.reload()}else toast("Chargement impossible")}}
+async function refresh(){await load();go()}
+function pname(rid){var l=L.filter(function(x){return x.request_id===rid})[0];var p=l&&find(P,l.provider_id);return p?p.name:"—"}
+function hname(id){var h=find(Ho,id);return h?h.name:"—"}
+function act(r){var s=r.status,i=r.id;return s==="Nouvelle"||s==="Refusée"||s==="En attente prestataire"?btn("assign",s==="Nouvelle"?"Assigner":"Réassigner",i):s==="Proposée au client"?btn("paid","Marquer payée",i):s==="Payée"?btn("done","Marquer réalisée",i):""}
+function view(tab,el){var h=demoBanner();
+ if(tab==="Demandes"){var td=R.filter(function(r){return r.status==="Nouvelle"||r.status==="Refusée"}).length;
+  h+="<h1>Demandes</h1><p class='sub'>Vous seul voyez les prestataires. Assignez chaque demande à un prestataire validé.</p><div class='kpi'><div class='card'><b>"+td+"</b><span>à assigner</span></div><div class='card'><b>"+Ap.filter(function(a){return a.status==="En attente"}).length+"</b><span>candidatures</span></div><div class='card'><b>"+Ho.length+"</b><span>hôtels</span></div></div><div class='card tw'><table><thead><tr><th>Client</th><th>Demande</th><th>Prestataire</th><th>Prix</th><th>Statut</th><th></th></tr></thead><tbody>";
+  if(!R.length)h+="<tr><td colspan='6'>Aucune demande.</td></tr>";
+  R.forEach(function(r){h+="<tr><td><b>"+esc(r.guest)+"</b><small>"+esc(hname(r.hotel_id))+"</small></td><td>"+esc(r.category)+"<small>"+esc(r.details)+" · "+esc(r.date)+"</small></td><td>"+esc(pname(r.id))+"</td><td>"+(r.price?eur(r.price):"—")+"</td><td>"+st(r.status)+"</td><td>"+act(r)+"</td></tr>"});h+="</tbody></table></div>"}
+ if(tab==="Candidatures"){h+="<h1>Candidatures</h1><p class='sub'>Les prestataires postulent depuis la page d’accueil. Acceptez pour leur envoyer une invitation.</p><div class='card tw'><table><thead><tr><th>Candidat</th><th>Profil</th><th>Statut</th><th></th></tr></thead><tbody>";
+  if(!Ap.length)h+="<tr><td colspan='4'>Aucune candidature.</td></tr>";
+  Ap.forEach(function(a){h+="<tr><td><b>"+esc(a.name)+"</b><small>"+esc(a.email)+" "+esc(a.phone)+"</small></td><td>"+esc(a.category)+" · "+esc(a.city)+" · "+esc(a.languages)+"<small>"+esc(a.message)+"</small></td><td>"+st(a.status)+"</td><td>"+(a.status==="En attente"?btn("accept","Accepter",a.id)+btn("refuse","Refuser",a.id,1):"")+"</td></tr>"});h+="</tbody></table></div>"}
+ if(tab==="Prestataires"){h+="<h1>Prestataires</h1><p class='sub'>Réseau validé. Ni les hôtels ni les clients n’y ont accès.</p><div class='card tw'><table><thead><tr><th>Nom</th><th>Catégorie</th><th>Ville</th><th>Langues</th><th>E-mail</th></tr></thead><tbody>";
+  P.forEach(function(p){h+="<tr><td><b>"+esc(p.name)+"</b></td><td>"+esc(p.category)+"</td><td>"+esc(p.city)+"</td><td>"+esc(p.languages)+"</td><td>"+esc(p.email)+"</td></tr>"});h+="</tbody></table></div>"}
+ if(tab==="Hôtels"){h+="<h1>Hôtels</h1><p class='sub'>Chaque hôtel a ses identifiants et ne voit que ses données. Vous pouvez inviter plusieurs comptes par hôtel.</p><p><button class='btn' data-a='newh'>Ajouter un hôtel</button></p><div class='card tw'><table><thead><tr><th>Hôtel</th><th></th></tr></thead><tbody>";
+  Ho.forEach(function(x){h+="<tr><td><b>"+esc(x.name)+"</b></td><td>"+btn("invh","Inviter un utilisateur",x.id,1)+"</td></tr>"});h+="</tbody></table></div>"}
+ if(tab==="Relevés"){var tp=0,tc=0,th=0,tn=0;h+="<h1>Relevés</h1><p class='sub'>Commission "+A.COMMISSION+" %, dont "+A.HOTEL_SHARE+" % reversés à l’hôtel (indicatif).</p><div class='card tw'><table><thead><tr><th>Prestation</th><th>Prix</th><th>Commission</th><th>Part hôtel</th><th>Net prestataire</th></tr></thead><tbody>";
+  R.filter(function(r){return r.status==="Payée"||r.status==="Réalisée"}).forEach(function(r){var c=r.price*A.COMMISSION/100,x=c*A.HOTEL_SHARE/100;tp+=r.price;tc+=c;th+=x;tn+=r.price-c;h+="<tr><td>"+esc(r.guest)+"<small>"+esc(hname(r.hotel_id))+" · "+esc(pname(r.id))+"</small></td><td>"+eur(r.price)+"</td><td>"+eur(c)+"</td><td>"+eur(x)+"</td><td>"+eur(r.price-c)+"</td></tr>"});
+  h+="<tr><td><b>Total</b></td><td><b>"+eur(tp)+"</b></td><td><b>"+eur(tc)+"</b></td><td><b>"+eur(th)+"</b></td><td><b>"+eur(tn)+"</b></td></tr></tbody></table></div>"}
+ el.innerHTML=h}
+document.addEventListener("click",guard(async function(a,id){
+ if(a==="close")closeM();
+ else if(a==="assign"){var r=find(R,id),ps=P.slice().sort(function(x,y){return (y.category===r.category)-(x.category===r.category)});
+  modal("<h2>Assigner un prestataire</h2><p class='sub'>"+esc(r.category)+" · "+esc(r.date)+"</p><select id='ap'>"+ps.map(function(p){return "<option value='"+p.id+"'>"+esc(p.name)+" · "+esc(p.category)+" · "+esc(p.city)+"</option>"}).join("")+"</select><p style='margin-top:16px'><button class='btn' data-a='doassign' data-id='"+id+"'>Envoyer la mission</button><button class='btn s' data-a='close'>Annuler</button></p>")}
+ else if(a==="doassign"){await api.assign(id,$("ap").value);closeM();toast("Mission envoyée");refresh()}
+ else if(a==="paid"){await api.upd("requests",id,{status:"Payée"});refresh()}
+ else if(a==="done"){await api.upd("requests",id,{status:"Réalisée"});refresh()}
+ else if(a==="accept"){var c=find(Ap,id),p=await api.ins("providers",{name:c.name,category:c.category,city:c.city,languages:c.languages,email:c.email.toLowerCase(),phone:c.phone});await fn("invite",{email:c.email,role:"provider",provider_id:p.id});await api.upd("applications",id,{status:"Acceptée"});toast("Prestataire accepté, invitation envoyée");refresh()}
+ else if(a==="refuse"){await api.upd("applications",id,{status:"Refusée"});refresh()}
+ else if(a==="newh")modal("<h2>Ajouter un hôtel</h2><label for='n'>Nom de l’hôtel</label><input id='n'><label for='m'>E-mail du responsable</label><input id='m' type='email'><p class='sub'>Il recevra un e-mail pour choisir son mot de passe.</p><p><button class='btn' data-a='addh'>Créer et inviter</button><button class='btn s' data-a='close'>Annuler</button></p>");
+ else if(a==="addh"){if(!fv("n")||!fv("m")){toast("Nom et e-mail requis");throw "x"}var h=await api.ins("hotels",{name:fv("n")});await fn("invite",{email:fv("m"),role:"hotel",hotel_id:h.id});closeM();toast("Hôtel créé, invitation envoyée");refresh()}
+ else if(a==="invh")modal("<h2>Inviter un utilisateur</h2><label for='m'>E-mail</label><input id='m' type='email'><p><button class='btn' data-a='doinv' data-id='"+id+"'>Inviter</button><button class='btn s' data-a='close'>Annuler</button></p>");
+ else if(a==="doinv"){if(!fv("m")){toast("E-mail requis");throw "x"}await fn("invite",{email:fv("m"),role:"hotel",hotel_id:id});closeM();toast("Invitation envoyée")}
+}));
+gate("Adel · Plateforme","admin",async function(){await load();go=shell("Adel · Plateforme",["Demandes","Candidatures","Prestataires","Hôtels","Relevés"],view)});
+
+}
+function run_prestataire(){
+var R=[],me=null,go;
+async function load(){try{me=(await api.list("providers"))[0]||null;R=await api.list("requests")}catch(e){if(e==="auth"){sessionStorage.clear();location.reload()}}}
+function view(tab,el){var h=demoBanner();
+ if(!me){el.innerHTML=h+"<h1>Profil introuvable</h1><p class='sub'>Votre compte n’est pas encore rattaché à un profil prestataire. Contactez la plateforme.</p>";return}
+ if(tab==="Missions"){var n=0,gain=0;R.forEach(function(r){if(r.status==="En attente prestataire")n++;if(r.status==="Payée"||r.status==="Réalisée")gain+=r.price*(100-A.COMMISSION)/100});
+  h+="<h1>Missions</h1><p class='sub'>Acceptez ou refusez chaque mission en toute liberté.</p><div class='kpi'><div class='card'><b>"+n+"</b><span>à répondre</span></div><div class='card'><b>"+eur(gain)+"</b><span>gains nets payés</span></div></div><div class='card tw'><table><thead><tr><th>Mission</th><th>Prix</th><th>Statut</th><th></th></tr></thead><tbody>";
+  if(!R.length)h+="<tr><td colspan='4'>Aucune mission pour le moment.</td></tr>";
+  R.forEach(function(r){var a=r.status==="En attente prestataire"?"<input id='pr"+r.id+"' type='number' min='1' placeholder='Votre prix en €' style='width:130px;margin-bottom:6px' aria-label='Votre prix'><br>"+btn("ok","Accepter",r.id)+btn("no","Refuser",r.id,1):"";
+   h+="<tr><td><b>"+esc(r.category)+"</b><small>"+esc(r.details)+"<br>"+esc(r.date)+" · "+r.people+" pers.</small></td><td>"+(r.price?eur(r.price):"—")+"</td><td>"+st(r.status==="Refusée"?"Refusée":r.status)+"</td><td>"+a+"</td></tr>"});h+="</tbody></table></div>"}
+ if(tab==="Mon profil")h+="<h1>Mon profil</h1><p class='sub'>Pour modifier ces informations, contactez la plateforme.</p><div class='card'><dl class='dl'><dt>Nom</dt><dd>"+esc(me.name)+"</dd><dt>Catégorie</dt><dd>"+esc(me.category)+"</dd><dt>Ville</dt><dd>"+esc(me.city)+"</dd><dt>Langues</dt><dd>"+esc(me.languages)+"</dd><dt>E-mail</dt><dd>"+esc(me.email)+"</dd></dl></div>";
+ el.innerHTML=h}
+document.addEventListener("click",guard(async function(a,id){
+ if(a==="ok"){var p=+$("pr"+id).value;if(!p){toast("Indiquez votre prix");throw "x"}await api.upd("requests",id,{status:"Proposée au client",price:p});toast("Mission acceptée")}
+ else if(a==="no"){await api.upd("requests",id,{status:"Refusée"});toast("Mission refusée")}
+ await load();go()}));
+gate("Adel · Prestataire","provider",async function(){await load();go=shell("Adel · Prestataire",["Missions","Mon profil"],view)});
+
+}
+
+window.addEventListener("hashchange",function(){location.reload()});
+var q0=new URLSearchParams(location.search),h1=location.hash.replace("#","");
+var route=q0.get("s")?"sejour":location.hash.indexOf("access_token")>-1?"home":({hotel:1,admin:1,prestataire:1}[h1]?h1:"home");
+({home:run_home,sejour:run_sejour,hotel:run_hotel,admin:run_admin,prestataire:run_prestataire})[route]();
+</script></body></html>
